@@ -1,11 +1,11 @@
 /*!
- * Cropper.js v0.5.6
+ * Cropper.js v0.6.0
  * https://github.com/fengyuanchen/cropperjs
  *
  * Copyright (c) 2015-2016 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2016-01-18T05:33:43.542Z
+ * Date: 2016-01-21T10:40:45.218Z
  */
 
 (function (global, factory) {
@@ -1497,18 +1497,19 @@
       var maxCropBoxHeight;
 
       if (sizeLimited) {
-        minCropBoxWidth = Number(options.minCropBoxWidth) || 0;
-        minCropBoxHeight = Number(options.minCropBoxHeight) || 0;
+        var ratio = canvasData.width / canvasData.naturalWidth;
+        minCropBoxWidth = Number(options.minCropBoxWidth) * ratio || 0;
+        minCropBoxHeight = Number(options.minCropBoxHeight) * ratio || 0;
 
         // The min/maxCropBoxWidth/Height must be less than containerWidth/Height
         minCropBoxWidth = min(minCropBoxWidth, containerData.width);
         minCropBoxHeight = min(minCropBoxHeight, containerData.height);
         maxCropBoxWidth = min(
-          containerData.width,
+          Number(options.maxCropBoxWidth) * ratio || containerData.width,
           limited ? canvasData.width : containerData.width
         );
         maxCropBoxHeight = min(
-          containerData.height,
+          Number(options.maxCropBoxHeight) * ratio || containerData.height,
           limited ? canvasData.height : containerData.height
         );
 
