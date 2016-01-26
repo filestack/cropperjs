@@ -266,6 +266,16 @@
         canvasData.maxHeight
       );
 
+      // Kind of hack. I'm not sure why original code allows for canvas to be
+      // higher than main container (so canvas isn't fully visible).
+      // Here just checking for it and adjusting if happened.
+      if (canvasData.height > _this.containerData.height) {
+          canvasData.height = _this.containerData.height;
+          canvasData.width = canvasData.height * canvasData.naturalWidth / canvasData.naturalHeight;
+          canvasData.left = (_this.containerData.width - canvasData.width) / 2;
+          canvasData.top = 0;
+      }
+
       _this.limitCanvas(false, true);
 
       canvasData.oldLeft = canvasData.left = min(
