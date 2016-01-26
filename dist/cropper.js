@@ -5,7 +5,7 @@
  * Copyright (c) 2015-2016 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2016-01-21T10:40:45.218Z
+ * Date: 2016-01-26T16:02:17.220Z
  */
 
 (function (global, factory) {
@@ -1349,6 +1349,16 @@
         max(canvasData.height, canvasData.minHeight),
         canvasData.maxHeight
       );
+
+      // Kind of hack. I'm not sure why original code allows for canvas to be
+      // higher than main container (so canvas isn't fully visible).
+      // Here just checking for it and adjusting if happened.
+      if (canvasData.height > _this.containerData.height) {
+          canvasData.height = _this.containerData.height;
+          canvasData.width = canvasData.height * canvasData.naturalWidth / canvasData.naturalHeight;
+          canvasData.left = (_this.containerData.width - canvasData.width) / 2;
+          canvasData.top = 0;
+      }
 
       _this.limitCanvas(false, true);
 
